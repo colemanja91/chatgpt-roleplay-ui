@@ -17,10 +17,10 @@ export default function TabSet() {
         <Tab variant="solid">Character</Tab>
         <Tab variant="solid">Messages</Tab>
       </TabList>
-      <TabPanel value={0} size="lg">
+      <TabPanel value={0} size="lg" sx={{width: 600}}>
         <CharacterTab activeCharacterId={activeCharacterId} setActiveCharacterId={setActiveCharacterId} />
       </TabPanel>
-      <TabPanel value={1} size="lg">
+      <TabPanel value={1} size="lg" sx={{width: 600}}>
        <MessagesTab activeCharacterId={activeCharacterId} />
       </TabPanel>
     </Tabs>

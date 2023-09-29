@@ -25,6 +25,7 @@ export default function MessageInput({ characterId }) {
     resetTranscript,
     browserSupportsSpeechRecognition
   } = useSpeechRecognition();
+  const startListening = () => SpeechRecognition.startListening({ continuous: true });
 
   const [sendMessage, { loading, error }] = useMutation(SEND_MESSAGE, { 
     refetchQueries: ['GetMessages'],
@@ -58,7 +59,7 @@ export default function MessageInput({ characterId }) {
       }}
     >
       <Textarea minRows={4} value={transcript} required />
-      <Button color="neutral" variant="soft" onClick={SpeechRecognition.startListening}>Start</Button>
+      <Button color="neutral" variant="soft" onClick={startListening}>Start</Button>
       <Button color="neutral" variant="soft" onClick={SpeechRecognition.stopListening}>Stop</Button>
       <Button color="neutral" variant="soft" onClick={resetTranscript}>Reset</Button>
       <FormControl>
