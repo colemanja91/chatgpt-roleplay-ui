@@ -19,10 +19,3 @@ npm start
 ```
 
 ## TODO
-
-* ~Fix conditional display logic on character form~
-* ~New character option on tab~
-* ~Wire up character form to update mutation~
-* ~Form -> create mutation~
-* Button -> Delete mutation (confirmation dialogue)
-* Send Message mutation

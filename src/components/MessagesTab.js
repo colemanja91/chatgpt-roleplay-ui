@@ -30,8 +30,8 @@ export default function MessagesTab({ activeCharacterId }) {
 
   return(
     <Stack spacing={2}>
-      {data.character.messages.map(({ role, content }) => (
-        <div>
+      {data.character.messages.map(({ id, role, content }) => (
+        <div key={id}>
           <Divider />
           <Card 
             variant="solid" 
