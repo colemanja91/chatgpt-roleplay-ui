@@ -6,6 +6,7 @@ import CardContent from '@mui/joy/CardContent';
 import Typography from '@mui/joy/Typography';
 import MessageInput from './MessageInput';
 import PlayTtsButton from './PlayTtsButton';
+import Button from '@mui/joy/Button';
 
 import { gql, useQuery } from '@apollo/client';
 
@@ -24,7 +25,7 @@ const GET_MESSAGES = gql`
 `;
 
 export default function MessagesTab({ activeCharacterId }) {
-  const { loading, error, data } = useQuery(GET_MESSAGES, {variables: {id: activeCharacterId}});
+  const { loading, error, data, refetch } = useQuery(GET_MESSAGES, {variables: {id: activeCharacterId}, pollInterval: 500});
   if (activeCharacterId == null) return <p>Select a character</p>;
 
   if (loading) return <p>Loading...</p>;
@@ -48,6 +49,7 @@ export default function MessagesTab({ activeCharacterId }) {
         </div>
       ))}
       <MessageInput characterId={activeCharacterId} />
+      <Button color="neutral" variant="soft" onClick={() => refetch()}>Refresh</Button>
     </Stack>
   );
 }
