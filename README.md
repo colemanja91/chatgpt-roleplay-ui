@@ -12,7 +12,7 @@ Install dependencies:
 npm install
 ```
 
-Run app on [http://localhost:3001](http://localhost:3001)
+Run app on [http://localhost:3001](http://localhost:3001) (ensure the backend is running first)
 
 ```sh
 npm start
