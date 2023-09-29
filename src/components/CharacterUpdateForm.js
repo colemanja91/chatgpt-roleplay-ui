@@ -6,6 +6,7 @@ import Textarea from '@mui/joy/Textarea';
 import FormHelperText from '@mui/joy/FormHelperText';
 import Button from '@mui/joy/Button';
 import Divider from '@mui/joy/Divider';
+import Switch from '@mui/joy/Switch';
 import DeleteCharacterButton from './DeleteCharacterButton';
 
 import { gql, useMutation } from '@apollo/client';
@@ -20,6 +21,7 @@ const UPDATE_CHARACTER = gql`
         systemMessageTokens
         createdAt
         updatedAt
+        ttsEnabled
       }
     }
   }
@@ -31,7 +33,8 @@ export default function CharacterUpdateForm({ inputData, setActiveCharacterId })
   const [formState, setFormState] = useState({
     id: inputData.character.id,
     name: inputData.character.name,
-    systemMessage: inputData.character.systemMessage
+    systemMessage: inputData.character.systemMessage,
+    ttsEnabled: inputData.character.ttsEnabled
   });
 
   return (
@@ -44,7 +47,8 @@ export default function CharacterUpdateForm({ inputData, setActiveCharacterId })
               input: {
                 id: formState.id,
                 name: formState.name,
-                systemMessage: formState.systemMessage
+                systemMessage: formState.systemMessage,
+                ttsEnabled: formState.ttsEnabled
               }
             }
           });
@@ -86,6 +90,17 @@ export default function CharacterUpdateForm({ inputData, setActiveCharacterId })
             required />
         </FormControl>
         <FormHelperText>{inputData.character.systemMessageTokens} tokens</FormHelperText>
+        <FormControl>
+        <FormLabel required>Enable TTS Generation?</FormLabel>
+        <Switch 
+          checked={formState.ttsEnabled} 
+          onChange={(e) =>
+            setFormState({
+              ...formState,
+              ttsEnabled: e.target.value === "on" ? true : false
+            })}
+        />
+      </FormControl>
 
         <Button type="submit" color="primary">Save</Button>
       </form>

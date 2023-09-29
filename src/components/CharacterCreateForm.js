@@ -4,6 +4,7 @@ import FormLabel from '@mui/joy/FormLabel';
 import Input from '@mui/joy/Input';
 import Textarea from '@mui/joy/Textarea';
 import Button from '@mui/joy/Button';
+import Switch from '@mui/joy/Switch';
 
 import { gql, useMutation } from '@apollo/client';
 
@@ -17,6 +18,7 @@ const CREATE_CHARACTER = gql`
         systemMessageTokens
         createdAt
         updatedAt
+        ttsEnabled
       }
     }
   }
@@ -25,7 +27,8 @@ const CREATE_CHARACTER = gql`
 export default function CharacterCreateForm({ setActiveCharacterId }) {
   const [formState, setFormState] = useState({
     name: null,
-    systemMessage: null
+    systemMessage: null,
+    ttsEnabled: false
   });
 
   const [createCharacter, { loading, error }] = useMutation(CREATE_CHARACTER, { 
@@ -46,7 +49,8 @@ export default function CharacterCreateForm({ setActiveCharacterId }) {
           variables: {
             input: {
               name: formState.name,
-              systemMessage: formState.systemMessage
+              systemMessage: formState.systemMessage,
+              ttsEnabled: formState.ttsEnabled
             }
           }
         });
@@ -74,6 +78,17 @@ export default function CharacterCreateForm({ setActiveCharacterId }) {
               systemMessage: e.target.value
             })}
           required />
+      </FormControl>
+      <FormControl>
+        <FormLabel required>Enable TTS Generation?</FormLabel>
+        <Switch 
+          checked={formState.ttsEnabled} 
+          onChange={(e) =>
+            setFormState({
+              ...formState,
+              ttsEnabled: e.target.value === "on" ? true : false
+            })}
+        />
       </FormControl>
 
       <Button type="submit" color="primary">Save</Button>

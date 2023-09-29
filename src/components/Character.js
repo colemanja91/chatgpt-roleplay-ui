@@ -13,6 +13,7 @@ const GET_CHARACTER = gql`
       systemMessageTokens
       createdAt
       updatedAt
+      ttsEnabled
     }
   }
 `;
