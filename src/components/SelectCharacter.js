@@ -23,11 +23,12 @@ export default function SelectCharacter({ activeCharacterId, setActiveCharacterI
     event,
     newValue,
   ) => {
-    setActiveCharacterId(newValue);
+    setActiveCharacterId(newValue === "new" ? null : newValue);
   };
 
   return (
     <Select defaultValue={activeCharacterId} onChange={handleChange}>
+      <Option value="new" key="new">Create new...</Option>
       {data.characters.map(({ id, name }) => (
         <Option value={id} key={id}>{name}</Option>
       ))}

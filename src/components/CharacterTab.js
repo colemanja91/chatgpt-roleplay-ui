@@ -9,7 +9,7 @@ export default function CharacterTab({ activeCharacterId, setActiveCharacterId }
         <SelectCharacter activeCharacterId={activeCharacterId} setActiveCharacterId={setActiveCharacterId} />
       </div>
       <div>
-        <Character id={activeCharacterId} />
+        <Character id={activeCharacterId} setActiveCharacterId={setActiveCharacterId} />
       </div>
     </div>
   );

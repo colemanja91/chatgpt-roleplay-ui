@@ -20,5 +20,9 @@ npm start
 
 ## TODO
 
-* Use mutation to create or update a character
-* Use mutation to send a new message
+* ~Fix conditional display logic on character form~
+* ~New character option on tab~
+* ~Wire up character form to update mutation~
+* ~Form -> create mutation~
+* Button -> Delete mutation (confirmation dialogue)
+* Send Message mutation
