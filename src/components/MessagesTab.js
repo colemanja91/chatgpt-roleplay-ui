@@ -7,6 +7,7 @@ import Typography from '@mui/joy/Typography';
 import MessageInput from './MessageInput';
 import PlayTtsButton from './PlayTtsButton';
 import Button from '@mui/joy/Button';
+import ClearMessageHistoryButton from './ClearMessageHistoryButton';
 
 import { gql, useQuery } from '@apollo/client';
 
@@ -50,6 +51,9 @@ export default function MessagesTab({ activeCharacterId }) {
       ))}
       <MessageInput characterId={activeCharacterId} />
       <Button color="neutral" variant="soft" onClick={() => refetch()}>Refresh</Button>
+      <Divider />
+      <Divider />
+      <ClearMessageHistoryButton activeCharacterId={activeCharacterId} />
     </Stack>
   );
 }
