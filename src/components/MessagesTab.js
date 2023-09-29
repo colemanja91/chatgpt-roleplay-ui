@@ -5,6 +5,7 @@ import Card from '@mui/joy/Card';
 import CardContent from '@mui/joy/CardContent';
 import Typography from '@mui/joy/Typography';
 import MessageInput from './MessageInput';
+import PlayTtsButton from './PlayTtsButton';
 
 import { gql, useQuery } from '@apollo/client';
 
@@ -16,6 +17,7 @@ const GET_MESSAGES = gql`
         id
         role
         content
+        ttsFilePath
       }
     }
   }
@@ -30,7 +32,7 @@ export default function MessagesTab({ activeCharacterId }) {
 
   return(
     <Stack spacing={2}>
-      {data.character.messages.map(({ id, role, content }) => (
+      {data.character.messages.map(({ id, role, content, ttsFilePath }) => (
         <div key={id}>
           <Divider />
           <Card 
@@ -39,6 +41,7 @@ export default function MessagesTab({ activeCharacterId }) {
             sx={{ textAlign: "right" }}
           >
             <CardContent>
+              {ttsFilePath ? (<PlayTtsButton ttsFilePath={ttsFilePath} />) : (null)}
               <Typography>{content}</Typography>
             </CardContent>
           </Card>
