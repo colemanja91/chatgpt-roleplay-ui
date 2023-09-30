@@ -38,7 +38,7 @@ export default function MessagesTab({ activeCharacterId }) {
         <div key={id}>
           <Divider />
           <Card 
-            variant="solid" 
+            variant="soft" 
             color={role === "user" ? "primary" : "success"}
             sx={{ textAlign: "right" }}
           >
