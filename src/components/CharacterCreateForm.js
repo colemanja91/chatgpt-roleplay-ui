@@ -5,6 +5,7 @@ import Input from '@mui/joy/Input';
 import Textarea from '@mui/joy/Textarea';
 import Button from '@mui/joy/Button';
 import Switch from '@mui/joy/Switch';
+import OpenaiModelSelect from './OpenaiModelSelect';
 
 import { gql, useMutation } from '@apollo/client';
 
@@ -19,6 +20,7 @@ const CREATE_CHARACTER = gql`
         createdAt
         updatedAt
         ttsEnabled
+        openaiModel
       }
     }
   }
@@ -28,7 +30,8 @@ export default function CharacterCreateForm({ setActiveCharacterId }) {
   const [formState, setFormState] = useState({
     name: null,
     systemMessage: null,
-    ttsEnabled: false
+    ttsEnabled: false,
+    openaiModel: null
   });
 
   const [createCharacter, { loading, error }] = useMutation(CREATE_CHARACTER, { 
@@ -50,7 +53,8 @@ export default function CharacterCreateForm({ setActiveCharacterId }) {
             input: {
               name: formState.name,
               systemMessage: formState.systemMessage,
-              ttsEnabled: formState.ttsEnabled
+              ttsEnabled: formState.ttsEnabled,
+              openaiModel: formState.openaiModel
             }
           }
         });
@@ -67,6 +71,10 @@ export default function CharacterCreateForm({ setActiveCharacterId }) {
             })} 
           required />
       </FormControl>
+      <FormControl>
+          <FormLabel>OpenAI Model</FormLabel>
+          <OpenaiModelSelect formState={formState} setFormState={setFormState} />
+        </FormControl>
       <FormControl>
         <FormLabel required>System Prompt</FormLabel>
         <Textarea 

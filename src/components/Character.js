@@ -14,6 +14,7 @@ const GET_CHARACTER = gql`
       createdAt
       updatedAt
       ttsEnabled
+      openaiModel
     }
   }
 `;

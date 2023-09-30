@@ -8,6 +8,7 @@ import Button from '@mui/joy/Button';
 import Divider from '@mui/joy/Divider';
 import Switch from '@mui/joy/Switch';
 import DeleteCharacterButton from './DeleteCharacterButton';
+import OpenaiModelSelect from './OpenaiModelSelect';
 
 import { gql, useMutation } from '@apollo/client';
 
@@ -22,6 +23,7 @@ const UPDATE_CHARACTER = gql`
         createdAt
         updatedAt
         ttsEnabled
+        openaiModel
       }
     }
   }
@@ -34,7 +36,8 @@ export default function CharacterUpdateForm({ inputData, setActiveCharacterId })
     id: inputData.character.id,
     name: inputData.character.name,
     systemMessage: inputData.character.systemMessage,
-    ttsEnabled: inputData.character.ttsEnabled
+    ttsEnabled: inputData.character.ttsEnabled,
+    openaiModel: inputData.character.openaiModel
   });
 
   return (
@@ -48,7 +51,8 @@ export default function CharacterUpdateForm({ inputData, setActiveCharacterId })
                 id: formState.id,
                 name: formState.name,
                 systemMessage: formState.systemMessage,
-                ttsEnabled: formState.ttsEnabled
+                ttsEnabled: formState.ttsEnabled,
+                openaiModel: formState.openaiModel
               }
             }
           });
@@ -76,6 +80,10 @@ export default function CharacterUpdateForm({ inputData, setActiveCharacterId })
                 name: e.target.value
               })} 
             required />
+        </FormControl>
+        <FormControl>
+          <FormLabel>OpenAI Model</FormLabel>
+          <OpenaiModelSelect formState={formState} setFormState={setFormState} />
         </FormControl>
         <FormControl>
           <FormLabel required>System Prompt</FormLabel>
