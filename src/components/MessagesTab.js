@@ -26,7 +26,7 @@ const GET_MESSAGES = gql`
 `;
 
 export default function MessagesTab({ activeCharacterId }) {
-  const { loading, error, data, refetch } = useQuery(GET_MESSAGES, {variables: {id: activeCharacterId}, pollInterval: 500});
+  const { loading, error, data, refetch } = useQuery(GET_MESSAGES, {variables: {id: activeCharacterId}, pollInterval: 750});
   if (activeCharacterId == null) return <p>Select a character</p>;
 
   if (loading) return <p>Loading...</p>;
