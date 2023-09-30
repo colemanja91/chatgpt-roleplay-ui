@@ -1,10 +1,7 @@
-import {React, useState} from 'react';
+import React from 'react';
 import Alert from '@mui/joy/Alert';
 import Button from '@mui/joy/Button';
 import Textarea from '@mui/joy/Textarea';
-import Switch from '@mui/joy/Switch';
-import FormControl from '@mui/joy/FormControl';
-import FormLabel from '@mui/joy/FormLabel';
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
 
 import { gql, useMutation } from '@apollo/client';
@@ -34,8 +31,6 @@ export default function MessageInput({ characterId }) {
     }
   });
 
-  const [temperatureState, setTemperatureState] = useState(false);
-
   if (!browserSupportsSpeechRecognition) {
     return <Alert>Browser doesn't support speech recognition.</Alert>;
   }
@@ -51,8 +46,7 @@ export default function MessageInput({ characterId }) {
           variables: {
             input: {
               characterId: characterId,
-              message: transcript,
-              variableTemp: temperatureState
+              message: transcript
             }
           }
         });
@@ -62,10 +56,6 @@ export default function MessageInput({ characterId }) {
       <Button color="neutral" variant="soft" onClick={startListening}>Start</Button>
       <Button color="neutral" variant="soft" onClick={SpeechRecognition.stopListening}>Stop</Button>
       <Button color="neutral" variant="soft" onClick={resetTranscript}>Reset</Button>
-      <FormControl>
-        <FormLabel>Enable random temperature?</FormLabel>
-        <Switch checked={temperatureState} onChange={(event) => setTemperatureState(event.target.checked)}/>
-      </FormControl>
       <Button type="submit" color="primary">Submit</Button>
     </form>
   );
