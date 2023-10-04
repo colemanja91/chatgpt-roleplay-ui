@@ -15,6 +15,10 @@ const GET_CHARACTER = gql`
       updatedAt
       ttsEnabled
       openaiModel
+      xiVoiceId
+      xiSimilarityBoost
+      xiStability
+      xiStyle
     }
   }
 `;

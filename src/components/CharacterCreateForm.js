@@ -6,6 +6,7 @@ import Textarea from '@mui/joy/Textarea';
 import Button from '@mui/joy/Button';
 import Switch from '@mui/joy/Switch';
 import OpenaiModelSelect from './OpenaiModelSelect';
+import XiModelInput from './XiModelInput';
 
 import { gql, useMutation } from '@apollo/client';
 
@@ -21,6 +22,10 @@ const CREATE_CHARACTER = gql`
         updatedAt
         ttsEnabled
         openaiModel
+        xiVoiceId
+        xiSimilarityBoost
+        xiStability
+        xiStyle
       }
     }
   }
@@ -31,7 +36,11 @@ export default function CharacterCreateForm({ setActiveCharacterId }) {
     name: null,
     systemMessage: null,
     ttsEnabled: false,
-    openaiModel: null
+    openaiModel: null,
+    xiVoiceId: null,
+    xiSimilarityBoost: 0,
+    xiStability: 0,
+    xiStyle: 0
   });
 
   const [createCharacter, { loading, error }] = useMutation(CREATE_CHARACTER, { 
@@ -54,7 +63,11 @@ export default function CharacterCreateForm({ setActiveCharacterId }) {
               name: formState.name,
               systemMessage: formState.systemMessage,
               ttsEnabled: formState.ttsEnabled,
-              openaiModel: formState.openaiModel
+              openaiModel: formState.openaiModel,
+              xiVoiceId: formState.xiVoiceId,
+              xiSimilarityBoost: formState.xiSimilarityBoost,
+              xiStability: formState.xiStability,
+              xiStyle: formState.xiStyle
             }
           }
         });
@@ -90,14 +103,16 @@ export default function CharacterCreateForm({ setActiveCharacterId }) {
       <FormControl>
         <FormLabel required>Enable TTS Generation?</FormLabel>
         <Switch 
-          checked={formState.ttsEnabled} 
+          defaultChecked={formState.ttsEnabled}
           onChange={(e) =>
             setFormState({
               ...formState,
-              ttsEnabled: e.target.value === "on" ? true : false
-            })}
+              ttsEnabled: e.target.checked
+            })
+          }
         />
       </FormControl>
+      <XiModelInput formState={formState} setFormState={setFormState} disabled={!formState.ttsEnabled} />
 
       <Button type="submit" color="primary">Save</Button>
     </form>

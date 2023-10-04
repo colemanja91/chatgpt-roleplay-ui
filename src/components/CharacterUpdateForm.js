@@ -9,6 +9,7 @@ import Divider from '@mui/joy/Divider';
 import Switch from '@mui/joy/Switch';
 import DeleteCharacterButton from './DeleteCharacterButton';
 import OpenaiModelSelect from './OpenaiModelSelect';
+import XiModelInput from './XiModelInput';
 
 import { gql, useMutation } from '@apollo/client';
 
@@ -24,6 +25,10 @@ const UPDATE_CHARACTER = gql`
         updatedAt
         ttsEnabled
         openaiModel
+        xiVoiceId
+        xiSimilarityBoost
+        xiStability
+        xiStyle
       }
     }
   }
@@ -37,7 +42,11 @@ export default function CharacterUpdateForm({ inputData, setActiveCharacterId })
     name: inputData.character.name,
     systemMessage: inputData.character.systemMessage,
     ttsEnabled: inputData.character.ttsEnabled,
-    openaiModel: inputData.character.openaiModel
+    openaiModel: inputData.character.openaiModel,
+    xiVoiceId: inputData.character.xiVoiceId,
+    xiSimilarityBoost: inputData.character.xiSimilarityBoost,
+    xiStability: inputData.character.xiStability,
+    xiStyle: inputData.character.xiStyle
   });
 
   return (
@@ -52,7 +61,11 @@ export default function CharacterUpdateForm({ inputData, setActiveCharacterId })
                 name: formState.name,
                 systemMessage: formState.systemMessage,
                 ttsEnabled: formState.ttsEnabled,
-                openaiModel: formState.openaiModel
+                openaiModel: formState.openaiModel,
+                xiVoiceId: formState.xiVoiceId,
+                xiSimilarityBoost: formState.xiSimilarityBoost,
+                xiStability: formState.xiStability,
+                xiStyle: formState.xiStyle
               }
             }
           });
@@ -105,10 +118,11 @@ export default function CharacterUpdateForm({ inputData, setActiveCharacterId })
           onChange={(e) =>
             setFormState({
               ...formState,
-              ttsEnabled: e.target.value === "on" ? true : false
+              ttsEnabled: e.target.checked
             })}
         />
       </FormControl>
+      <XiModelInput formState={formState} setFormState={setFormState} disabled={!formState.ttsEnabled} />
 
         <Button type="submit" color="primary">Save</Button>
       </form>
