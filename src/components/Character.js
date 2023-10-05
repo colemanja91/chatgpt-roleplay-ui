@@ -20,6 +20,7 @@ const GET_CHARACTER = gql`
       xiStability
       xiStyle
       contextSize
+      variableTemperatureEnabled
     }
   }
 `;

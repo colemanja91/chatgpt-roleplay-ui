@@ -31,6 +31,7 @@ const UPDATE_CHARACTER = gql`
         xiStability
         xiStyle
         contextSize
+        variableTemperatureEnabled
       }
     }
   }
@@ -49,7 +50,8 @@ export default function CharacterUpdateForm({ inputData, setActiveCharacterId })
     xiSimilarityBoost: inputData.character.xiSimilarityBoost,
     xiStability: inputData.character.xiStability,
     xiStyle: inputData.character.xiStyle,
-    contextSize: inputData.character.contextSize
+    contextSize: inputData.character.contextSize,
+    variableTemperatureEnabled: inputData.character.variableTemperatureEnabled
   });
 
   return (
@@ -69,7 +71,8 @@ export default function CharacterUpdateForm({ inputData, setActiveCharacterId })
                 xiSimilarityBoost: formState.xiSimilarityBoost,
                 xiStability: formState.xiStability,
                 xiStyle: formState.xiStyle,
-                contextSize: formState.contextSize
+                contextSize: formState.contextSize,
+                variableTemperatureEnabled: formState.variableTemperatureEnabled
               }
             }
           });
@@ -119,6 +122,18 @@ export default function CharacterUpdateForm({ inputData, setActiveCharacterId })
             required />
         </FormControl>
         <FormHelperText>{inputData.character.systemMessageTokens} tokens</FormHelperText>
+        <FormControl>
+        <FormLabel required>Enable variable temperature?</FormLabel>
+        <Switch 
+          defaultChecked={formState.variableTemperatureEnabled}
+          onChange={(e) =>
+            setFormState({
+              ...formState,
+              variableTemperatureEnabled: e.target.checked
+            })
+          }
+        />
+      </FormControl>
         <FormControl>
         <FormLabel required>Enable TTS Generation?</FormLabel>
         <Switch 
