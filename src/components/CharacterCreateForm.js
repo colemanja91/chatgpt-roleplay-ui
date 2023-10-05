@@ -7,6 +7,7 @@ import Button from '@mui/joy/Button';
 import Switch from '@mui/joy/Switch';
 import OpenaiModelSelect from './OpenaiModelSelect';
 import XiModelInput from './XiModelInput';
+import ContextSizeSelect from './ContextSizeSelect';
 
 import { gql, useMutation } from '@apollo/client';
 
@@ -26,6 +27,7 @@ const CREATE_CHARACTER = gql`
         xiSimilarityBoost
         xiStability
         xiStyle
+        contextSize
       }
     }
   }
@@ -40,7 +42,8 @@ export default function CharacterCreateForm({ setActiveCharacterId }) {
     xiVoiceId: null,
     xiSimilarityBoost: 0,
     xiStability: 0,
-    xiStyle: 0
+    xiStyle: 0,
+    contextSize: 4096
   });
 
   const [createCharacter, { loading, error }] = useMutation(CREATE_CHARACTER, { 
@@ -67,7 +70,8 @@ export default function CharacterCreateForm({ setActiveCharacterId }) {
               xiVoiceId: formState.xiVoiceId,
               xiSimilarityBoost: formState.xiSimilarityBoost,
               xiStability: formState.xiStability,
-              xiStyle: formState.xiStyle
+              xiStyle: formState.xiStyle,
+              contextSize: formState.contextSize
             }
           }
         });
@@ -85,9 +89,13 @@ export default function CharacterCreateForm({ setActiveCharacterId }) {
           required />
       </FormControl>
       <FormControl>
-          <FormLabel>OpenAI Model</FormLabel>
-          <OpenaiModelSelect formState={formState} setFormState={setFormState} />
-        </FormControl>
+        <FormLabel>OpenAI Model</FormLabel>
+        <OpenaiModelSelect formState={formState} setFormState={setFormState} />
+      </FormControl>
+      <FormControl>
+        <FormLabel>Context Size</FormLabel>
+        <ContextSizeSelect formState={formState} setFormState={setFormState} />
+      </FormControl>
       <FormControl>
         <FormLabel required>System Prompt</FormLabel>
         <Textarea 

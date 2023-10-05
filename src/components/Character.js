@@ -19,6 +19,7 @@ const GET_CHARACTER = gql`
       xiSimilarityBoost
       xiStability
       xiStyle
+      contextSize
     }
   }
 `;

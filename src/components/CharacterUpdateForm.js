@@ -10,6 +10,7 @@ import Switch from '@mui/joy/Switch';
 import DeleteCharacterButton from './DeleteCharacterButton';
 import OpenaiModelSelect from './OpenaiModelSelect';
 import XiModelInput from './XiModelInput';
+import ContextSizeSelect from './ContextSizeSelect';
 
 import { gql, useMutation } from '@apollo/client';
 
@@ -29,6 +30,7 @@ const UPDATE_CHARACTER = gql`
         xiSimilarityBoost
         xiStability
         xiStyle
+        contextSize
       }
     }
   }
@@ -46,7 +48,8 @@ export default function CharacterUpdateForm({ inputData, setActiveCharacterId })
     xiVoiceId: inputData.character.xiVoiceId,
     xiSimilarityBoost: inputData.character.xiSimilarityBoost,
     xiStability: inputData.character.xiStability,
-    xiStyle: inputData.character.xiStyle
+    xiStyle: inputData.character.xiStyle,
+    contextSize: inputData.character.contextSize
   });
 
   return (
@@ -65,7 +68,8 @@ export default function CharacterUpdateForm({ inputData, setActiveCharacterId })
                 xiVoiceId: formState.xiVoiceId,
                 xiSimilarityBoost: formState.xiSimilarityBoost,
                 xiStability: formState.xiStability,
-                xiStyle: formState.xiStyle
+                xiStyle: formState.xiStyle,
+                contextSize: formState.contextSize
               }
             }
           });
@@ -97,6 +101,10 @@ export default function CharacterUpdateForm({ inputData, setActiveCharacterId })
         <FormControl>
           <FormLabel>OpenAI Model</FormLabel>
           <OpenaiModelSelect formState={formState} setFormState={setFormState} />
+        </FormControl>
+        <FormControl>
+          <FormLabel>Context Size</FormLabel>
+          <ContextSizeSelect formState={formState} setFormState={setFormState} />
         </FormControl>
         <FormControl>
           <FormLabel required>System Prompt</FormLabel>
