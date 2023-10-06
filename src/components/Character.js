@@ -21,6 +21,7 @@ const GET_CHARACTER = gql`
       xiStyle
       contextSize
       variableTemperatureEnabled
+      avatarUrl
     }
   }
 `;

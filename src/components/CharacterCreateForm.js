@@ -29,6 +29,7 @@ const CREATE_CHARACTER = gql`
         xiStyle
         contextSize
         variableTemperatureEnabled
+        avatarUrl
       }
     }
   }
@@ -45,7 +46,8 @@ export default function CharacterCreateForm({ setActiveCharacterId }) {
     xiStability: 0,
     xiStyle: 0,
     contextSize: 4096,
-    variableTemperatureEnabled: false
+    variableTemperatureEnabled: false,
+    avatarUrl: null
   });
 
   const [createCharacter, { loading, error }] = useMutation(CREATE_CHARACTER, { 
@@ -74,7 +76,8 @@ export default function CharacterCreateForm({ setActiveCharacterId }) {
               xiStability: formState.xiStability,
               xiStyle: formState.xiStyle,
               contextSize: formState.contextSize,
-              variableTemperatureEnabled: formState.variableTemperatureEnabled
+              variableTemperatureEnabled: formState.variableTemperatureEnabled,
+              avatarUrl: formState.avatarUrl
             }
           }
         });
@@ -90,6 +93,17 @@ export default function CharacterCreateForm({ setActiveCharacterId }) {
               name: e.target.value
             })} 
           required />
+      </FormControl>
+      <FormControl>
+        <FormLabel>Avatar URL</FormLabel>
+        <Input 
+          value={formState.avatarUrl}
+          onChange={(e) =>
+            setFormState({
+              ...formState,
+              avatarUrl: e.target.value
+            })} 
+        />
       </FormControl>
       <FormControl>
         <FormLabel>OpenAI Model</FormLabel>

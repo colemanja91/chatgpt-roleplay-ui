@@ -1,20 +1,18 @@
 import * as React from 'react';
 import Stack from '@mui/joy/Stack';
-import Divider from '@mui/joy/Divider';
-import Card from '@mui/joy/Card';
-import CardContent from '@mui/joy/CardContent';
-import Typography from '@mui/joy/Typography';
 import MessageInput from './MessageInput';
-import PlayTtsButton from './PlayTtsButton';
 import Button from '@mui/joy/Button';
+import Divider from '@mui/joy/Divider';
 import ClearMessageHistoryButton from './ClearMessageHistoryButton';
 
 import { gql, useQuery } from '@apollo/client';
+import MessageCard from './MessageCard';
 
 const GET_MESSAGES = gql`
   query GetMessages($id: ID!) {
     character(id: $id) {
       id
+      avatarUrl
       messages {
         id
         role
@@ -35,19 +33,7 @@ export default function MessagesTab({ activeCharacterId }) {
   return(
     <Stack spacing={2}>
       {data.character.messages.map(({ id, role, content, ttsFilePath }) => (
-        <div key={id}>
-          <Divider />
-          <Card 
-            variant="soft" 
-            color={role === "user" ? "primary" : "success"}
-            sx={{ textAlign: "right" }}
-          >
-            <CardContent>
-              {ttsFilePath ? (<PlayTtsButton ttsFilePath={ttsFilePath} />) : (null)}
-              <Typography>{content}</Typography>
-            </CardContent>
-          </Card>
-        </div>
+        <MessageCard id={id} role={role} content={content} ttsFilePath={ttsFilePath} avatarUrl={data.character.avatarUrl} />
       ))}
       <MessageInput characterId={activeCharacterId} />
       <Button color="neutral" variant="soft" onClick={() => refetch()}>Refresh</Button>

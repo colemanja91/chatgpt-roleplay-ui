@@ -32,6 +32,7 @@ const UPDATE_CHARACTER = gql`
         xiStyle
         contextSize
         variableTemperatureEnabled
+        avatarUrl
       }
     }
   }
@@ -51,7 +52,8 @@ export default function CharacterUpdateForm({ inputData, setActiveCharacterId })
     xiStability: inputData.character.xiStability,
     xiStyle: inputData.character.xiStyle,
     contextSize: inputData.character.contextSize,
-    variableTemperatureEnabled: inputData.character.variableTemperatureEnabled
+    variableTemperatureEnabled: inputData.character.variableTemperatureEnabled,
+    avatarUrl: inputData.character.avatarUrl
   });
 
   return (
@@ -72,7 +74,8 @@ export default function CharacterUpdateForm({ inputData, setActiveCharacterId })
                 xiStability: formState.xiStability,
                 xiStyle: formState.xiStyle,
                 contextSize: formState.contextSize,
-                variableTemperatureEnabled: formState.variableTemperatureEnabled
+                variableTemperatureEnabled: formState.variableTemperatureEnabled,
+                avatarUrl: formState.avatarUrl
               }
             }
           });
@@ -100,6 +103,17 @@ export default function CharacterUpdateForm({ inputData, setActiveCharacterId })
                 name: e.target.value
               })} 
             required />
+        </FormControl>
+        <FormControl>
+          <FormLabel>Avatar URL</FormLabel>
+          <Input 
+            value={formState.avatarUrl}
+            onChange={(e) =>
+              setFormState({
+                ...formState,
+                avatarUrl: e.target.value
+              })} 
+          />
         </FormControl>
         <FormControl>
           <FormLabel>OpenAI Model</FormLabel>
