@@ -17,6 +17,7 @@ export default function MessageCard({ id, role, content, ttsFilePath, avatarUrl 
         <CardContent>
           {ttsFilePath ? (<PlayTtsButton ttsFilePath={ttsFilePath} />) : (null)}
           <Typography>{content}</Typography>
+          {(avatarUrl && role === "assistant") ? (<img src={avatarUrl} alt="Avatar" width={75} />) : (null)}
         </CardContent>
       </Card>
     </div>
