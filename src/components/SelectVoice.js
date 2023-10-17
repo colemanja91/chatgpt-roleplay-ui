@@ -13,7 +13,7 @@ const GET_VOICES = gql`
   }
 `;
 
-export default function SelectVoice({ activeVoiceId, setActiveVoiceId }) {
+export default function SelectVoice({ activeVoiceId, setActiveVoiceId, disabled }) {
   const { loading, error, data } = useQuery(GET_VOICES);
 
   if (loading) return <p>Loading...</p>;
@@ -27,7 +27,7 @@ export default function SelectVoice({ activeVoiceId, setActiveVoiceId }) {
   };
 
   return (
-    <Select defaultValue={activeVoiceId} onChange={handleChange}>
+    <Select defaultValue={activeVoiceId} onChange={handleChange} disabled={disabled}>
       <Option value="new" key="new">Create new...</Option>
       {data.voices.map(({ id, name }) => (
         <Option value={id} key={id}>{name}</Option>

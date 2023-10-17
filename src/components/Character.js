@@ -14,11 +14,10 @@ const GET_CHARACTER = gql`
       createdAt
       updatedAt
       ttsEnabled
+      voice {
+        id
+      }
       openaiModel
-      xiVoiceId
-      xiSimilarityBoost
-      xiStability
-      xiStyle
       contextSize
       variableTemperatureEnabled
       avatarUrl

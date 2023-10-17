@@ -9,8 +9,8 @@ import Divider from '@mui/joy/Divider';
 import Switch from '@mui/joy/Switch';
 import DeleteCharacterButton from './DeleteCharacterButton';
 import OpenaiModelSelect from './OpenaiModelSelect';
-import XiModelInput from './XiModelInput';
 import ContextSizeSelect from './ContextSizeSelect';
+import SelectVoice from './SelectVoice';
 
 import { gql, useMutation } from '@apollo/client';
 
@@ -25,11 +25,10 @@ const UPDATE_CHARACTER = gql`
         createdAt
         updatedAt
         ttsEnabled
+        voice {
+          id
+        }
         openaiModel
-        xiVoiceId
-        xiSimilarityBoost
-        xiStability
-        xiStyle
         contextSize
         variableTemperatureEnabled
         avatarUrl
@@ -47,14 +46,12 @@ export default function CharacterUpdateForm({ inputData, setActiveCharacterId })
     systemMessage: inputData.character.systemMessage,
     ttsEnabled: inputData.character.ttsEnabled,
     openaiModel: inputData.character.openaiModel,
-    xiVoiceId: inputData.character.xiVoiceId,
-    xiSimilarityBoost: inputData.character.xiSimilarityBoost,
-    xiStability: inputData.character.xiStability,
-    xiStyle: inputData.character.xiStyle,
     contextSize: inputData.character.contextSize,
     variableTemperatureEnabled: inputData.character.variableTemperatureEnabled,
     avatarUrl: inputData.character.avatarUrl
   });
+
+  const [activeVoiceId, setActiveVoiceId] = useState(inputData.character.voice?.id);
 
   return (
     <div>
@@ -68,11 +65,8 @@ export default function CharacterUpdateForm({ inputData, setActiveCharacterId })
                 name: formState.name,
                 systemMessage: formState.systemMessage,
                 ttsEnabled: formState.ttsEnabled,
+                voiceId: activeVoiceId,
                 openaiModel: formState.openaiModel,
-                xiVoiceId: formState.xiVoiceId,
-                xiSimilarityBoost: formState.xiSimilarityBoost,
-                xiStability: formState.xiStability,
-                xiStyle: formState.xiStyle,
                 contextSize: formState.contextSize,
                 variableTemperatureEnabled: formState.variableTemperatureEnabled,
                 avatarUrl: formState.avatarUrl
@@ -159,7 +153,10 @@ export default function CharacterUpdateForm({ inputData, setActiveCharacterId })
             })}
         />
       </FormControl>
-      <XiModelInput formState={formState} setFormState={setFormState} disabled={!formState.ttsEnabled} />
+      <FormControl>
+        <FormLabel>Select TTS Voice</FormLabel>
+        <SelectVoice activeVoiceId={activeVoiceId} setActiveVoiceId={setActiveVoiceId} disabled={!formState.ttsEnabled} />
+      </FormControl>
 
         <Button type="submit" color="primary">Save</Button>
       </form>

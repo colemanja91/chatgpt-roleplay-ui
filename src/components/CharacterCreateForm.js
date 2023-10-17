@@ -6,8 +6,8 @@ import Textarea from '@mui/joy/Textarea';
 import Button from '@mui/joy/Button';
 import Switch from '@mui/joy/Switch';
 import OpenaiModelSelect from './OpenaiModelSelect';
-import XiModelInput from './XiModelInput';
 import ContextSizeSelect from './ContextSizeSelect';
+import SelectVoice from './SelectVoice';
 
 import { gql, useMutation } from '@apollo/client';
 
@@ -22,11 +22,10 @@ const CREATE_CHARACTER = gql`
         createdAt
         updatedAt
         ttsEnabled
+        voice {
+          id
+        }
         openaiModel
-        xiVoiceId
-        xiSimilarityBoost
-        xiStability
-        xiStyle
         contextSize
         variableTemperatureEnabled
         avatarUrl
@@ -40,15 +39,13 @@ export default function CharacterCreateForm({ setActiveCharacterId }) {
     name: null,
     systemMessage: null,
     ttsEnabled: false,
+    voiceId: null,
     openaiModel: null,
-    xiVoiceId: null,
-    xiSimilarityBoost: 0,
-    xiStability: 0,
-    xiStyle: 0,
     contextSize: 4096,
     variableTemperatureEnabled: false,
     avatarUrl: null
   });
+  const [activeVoiceId, setActiveVoiceId] = useState(null);
 
   const [createCharacter, { loading, error }] = useMutation(CREATE_CHARACTER, { 
     refetchQueries: ['GetCharacters'],
@@ -70,11 +67,8 @@ export default function CharacterCreateForm({ setActiveCharacterId }) {
               name: formState.name,
               systemMessage: formState.systemMessage,
               ttsEnabled: formState.ttsEnabled,
+              voiceId: activeVoiceId,
               openaiModel: formState.openaiModel,
-              xiVoiceId: formState.xiVoiceId,
-              xiSimilarityBoost: formState.xiSimilarityBoost,
-              xiStability: formState.xiStability,
-              xiStyle: formState.xiStyle,
               contextSize: formState.contextSize,
               variableTemperatureEnabled: formState.variableTemperatureEnabled,
               avatarUrl: formState.avatarUrl
@@ -149,7 +143,10 @@ export default function CharacterCreateForm({ setActiveCharacterId }) {
           }
         />
       </FormControl>
-      <XiModelInput formState={formState} setFormState={setFormState} disabled={!formState.ttsEnabled} />
+      <FormControl>
+        <FormLabel>Select TTS Voice</FormLabel>
+        <SelectVoice activeVoiceId={activeVoiceId} setActiveVoiceId={setActiveVoiceId} disabled={!formState.ttsEnabled} />
+      </FormControl>
 
       <Button type="submit" color="primary">Save</Button>
     </form>
