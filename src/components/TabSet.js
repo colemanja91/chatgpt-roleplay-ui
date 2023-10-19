@@ -8,6 +8,7 @@ import TabPanel from '@mui/joy/TabPanel';
 import CharacterTab from './CharacterTab';
 import MessagesTab from './MessagesTab';
 import VoiceTab from './VoiceTab';
+import SessionTab from './SessionTab';
 
 export default function TabSet() {
   const [activeCharacterId, setActiveCharacterId] = useState(null);
@@ -18,6 +19,7 @@ export default function TabSet() {
         <Tab variant="solid">Voices</Tab>
         <Tab variant="solid">Character</Tab>
         <Tab variant="solid">Messages</Tab>
+        <Tab variant="solid">Insults</Tab>
       </TabList>
       <TabPanel value={0} size="lg" sx={{width: 600}}>
         <VoiceTab />
@@ -27,6 +29,9 @@ export default function TabSet() {
       </TabPanel>
       <TabPanel value={2} size="lg" sx={{width: 600}}>
        <MessagesTab activeCharacterId={activeCharacterId} />
+      </TabPanel>
+      <TabPanel value={3} size="lg" sx={{width: 600}}>
+       <SessionTab />
       </TabPanel>
     </Tabs>
   )
