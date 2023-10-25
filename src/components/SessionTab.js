@@ -12,6 +12,8 @@ const GET_SESSION = gql`
       name
       game
       deathCounter
+      startedAt
+      endedAt
       characters {
         id
         description
@@ -45,8 +47,13 @@ export default function SessionTab() {
 
   return (
     <div>
-      <StartSessionButton sessionId={data.insultSession.id} />
-      <EndSessionButton sessionId={data.insultSession.id} />
+      {
+        data.insultSession.startedAt ? (
+          <EndSessionButton sessionId={data.insultSession.id} />
+        ) : (
+          <StartSessionButton sessionId={data.insultSession.id} />
+        )
+      }
       {ttsFilePath && notPlayed ? (
         <PlayTtsButton ttsFilePath={ttsFilePath} ended={(e) => {setLastPlayedId(messageId)}} />
       ) : (

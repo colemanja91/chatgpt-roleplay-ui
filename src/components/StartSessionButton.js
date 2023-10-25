@@ -7,7 +7,7 @@ import FormLabel from '@mui/joy/FormLabel';
 import { gql, useMutation } from '@apollo/client';
 
 const START_SESSION = gql`
-  mutation StartSession($input: StartInsultSessionInput!) {
+  mutation StartInsultSession($input: StartInsultSessionInput!) {
     startInsultSession(input: $input) {
       insultSession {
         id
@@ -29,7 +29,7 @@ export default function StartSessionButton({ sessionId }) {
           startSession({
             variables: {
               input: {
-                insultSessionId: sessionId
+                id: sessionId
               }
             }
           });

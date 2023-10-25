@@ -29,7 +29,7 @@ export default function EndSessionButton({ sessionId }) {
           endSession({
             variables: {
               input: {
-                insultSessionId: sessionId
+                id: sessionId
               }
             }
           });
